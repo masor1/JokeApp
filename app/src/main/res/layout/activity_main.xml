@@ -16,12 +16,13 @@
         tools:text="Joke or error message" />
 
     <ProgressBar
-        android:id="@+id/loading"
+        android:id="@+id/jokeLoading"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:progress="70"
-        android:layout_margin="16dp" />
+        android:layout_margin="16dp"
+        android:indeterminate="true"
+        tools:progress="70" />
 
     <Button
         android:id="@+id/getJoke"
