@@ -16,8 +16,8 @@ interface Model {
 
         override fun getQuote() {
             service.getQuote(object : ServiceCallback {
-                override fun success(data: String) {
-                    callback?.provideSuccess(Quote(data, ""))
+                override fun success(data: QuoteDTO) {
+                    callback?.provideSuccess(data.toQuote())
                 }
 
                 override fun error(type: ErrorType) {

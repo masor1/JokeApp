@@ -1,6 +1,7 @@
 package com.masorone.jokeapp
 
 import android.app.Application
+import com.google.gson.Gson
 
 class QuoteApp : Application() {
 
@@ -10,7 +11,7 @@ class QuoteApp : Application() {
         super.onCreate()
         viewModel = ViewModel(
             Model.Base(
-                QuoteService.Base(),
+                QuoteService.Base(Gson()),
                 ResourceManager.ResString(this)
             )
         )

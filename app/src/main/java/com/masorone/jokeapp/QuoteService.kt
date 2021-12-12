@@ -1,5 +1,6 @@
 package com.masorone.jokeapp
 
+import com.google.gson.Gson
 import java.io.BufferedInputStream
 import java.io.InputStreamReader
 import java.net.HttpURLConnection
@@ -10,7 +11,7 @@ import java.net.UnknownHostException
 interface QuoteService {
     fun getQuote(callback: ServiceCallback)
 
-    class Base() : QuoteService {
+    class Base(private val gson: Gson) : QuoteService {
         override fun getQuote(callback: ServiceCallback) {
             Thread {
                 var connection: HttpURLConnection? = null
@@ -19,7 +20,8 @@ interface QuoteService {
                     connection = url.openConnection() as HttpURLConnection
                     InputStreamReader(BufferedInputStream(connection.inputStream)).use {
                         val line: String = it.readText()
-                        callback.success(line)
+                        val quoteDTO = gson.fromJson(line, QuoteDTO::class.java)
+                        callback.success(quoteDTO)
                     }
                 } catch (e: Exception) {
                     if (e is UnknownHostException)
@@ -39,7 +41,7 @@ interface QuoteService {
 }
 
 interface ServiceCallback {
-    fun success(data: String)
+    fun success(data: QuoteDTO)
     fun error(type: ErrorType)
 }
 
