@@ -6,5 +6,13 @@ class Quote(
     private val content: String,
     private val dateAdded: String
 ) {
-    fun getJokeUI() = "$id\n$author\n$content\n$dateAdded"
+    fun getJokeUI() = "+-----------------------------------------------------+\n" +
+            "| id |  $id\n" +
+            "+-----------------------------------------------------+\n" +
+            "| author |  $author\n" +
+            "+-----------------------------------------------------+\n" +
+            "| content |  $content\n" +
+            "+-----------------------------------------------------+\n" +
+            "| dateAdded |  $dateAdded\n" +
+    "+-----------------------------------------------------+"
 }

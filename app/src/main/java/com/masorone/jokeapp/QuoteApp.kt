@@ -1,7 +1,8 @@
 package com.masorone.jokeapp
 
 import android.app.Application
-import com.google.gson.Gson
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 class QuoteApp : Application() {
 
@@ -9,9 +10,14 @@ class QuoteApp : Application() {
 
     override fun onCreate() {
         super.onCreate()
+        val retrofit = Retrofit.Builder()
+            .baseUrl("https://google.com/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+
         viewModel = ViewModel(
             Model.Base(
-                QuoteService.Base(Gson()),
+                retrofit.create(QuoteService::class.java),
                 ResourceManager.ResString(this)
             )
         )
