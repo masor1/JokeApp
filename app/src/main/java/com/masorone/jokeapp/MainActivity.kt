@@ -9,9 +9,9 @@ import android.widget.TextView
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var jokeLoadingProgressBar: ProgressBar
-    private lateinit var jokeOrErrorTextView: TextView
-    private lateinit var getJokeButton: Button
+    private lateinit var quoteLoadingProgressBar: ProgressBar
+    private lateinit var quoteOrErrorTextView: TextView
+    private lateinit var getQuoteButton: Button
     private lateinit var viewModel: ViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,34 +27,34 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initViewModel() {
-        viewModel = (application as JokeApp).viewModel
+        viewModel = (application as QuoteApp).viewModel
     }
 
     private fun initViews() {
-        jokeLoadingProgressBar = findViewById(R.id.jokeLoading)
-        jokeOrErrorTextView = findViewById(R.id.jokeOrError)
-        getJokeButton = findViewById(R.id.getJoke)
+        quoteLoadingProgressBar = findViewById(R.id.quoteLoading)
+        quoteOrErrorTextView = findViewById(R.id.quoteOrError)
+        getQuoteButton = findViewById(R.id.getQuote)
     }
 
     private fun setFunctional() {
-        jokeLoadingProgressBar.visibility = View.INVISIBLE
-        getJokeButton.setOnClickListener {
-            getJoke()
+        quoteLoadingProgressBar.visibility = View.INVISIBLE
+        getQuoteButton.setOnClickListener {
+            getQuote()
         }
         viewModel.init(createTextCallback())
     }
 
-    private fun getJoke() {
-        getJokeButton.isEnabled = false
-        jokeLoadingProgressBar.visibility = View.VISIBLE
-        viewModel.getJoke()
+    private fun getQuote() {
+        getQuoteButton.isEnabled = false
+        quoteLoadingProgressBar.visibility = View.VISIBLE
+        viewModel.getQuote()
     }
 
     private fun createTextCallback() = object : TextCallback {
         override fun provideText(text: String) = runOnUiThread {
-            getJokeButton.isEnabled = true
-            jokeLoadingProgressBar.visibility = View.INVISIBLE
-            jokeOrErrorTextView.text = text
+            getQuoteButton.isEnabled = true
+            quoteLoadingProgressBar.visibility = View.INVISIBLE
+            quoteOrErrorTextView.text = text
         }
     }
 

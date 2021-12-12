@@ -2,7 +2,7 @@ package com.masorone.jokeapp
 
 import android.app.Application
 
-class JokeApp : Application() {
+class QuoteApp : Application() {
 
     lateinit var viewModel: ViewModel
 
@@ -10,7 +10,7 @@ class JokeApp : Application() {
         super.onCreate()
         viewModel = ViewModel(
             Model.Base(
-                JokeService.Base(),
+                QuoteService.Base(),
                 ResourceManager.ResString(this)
             )
         )

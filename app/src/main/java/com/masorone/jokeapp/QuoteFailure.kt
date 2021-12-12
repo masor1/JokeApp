@@ -1,13 +1,13 @@
 package com.masorone.jokeapp
 
-interface JokeFailure {
+interface QuoteFailure {
     fun getMessage(): String
 
-    class NoConnection(private val resourceManager: ResourceManager) : JokeFailure {
+    class NoConnection(private val resourceManager: ResourceManager) : QuoteFailure {
         override fun getMessage() = resourceManager.getString(R.string.no_connection)
     }
 
-    class ServiceUnavailable(private val resourceManager: ResourceManager) : JokeFailure {
+    class ServiceUnavailable(private val resourceManager: ResourceManager) : QuoteFailure {
         override fun getMessage() = resourceManager.getString(R.string.service_unavailable)
     }
 }

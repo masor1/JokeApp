@@ -2,28 +2,28 @@ package com.masorone.jokeapp
 
 interface Model {
 
-    fun getJoke()
+    fun getQuote()
 
     fun init(callback: ResultCallback)
 
     fun clear()
 
     class Base(
-        private val service: JokeService,
+        private val service: QuoteService,
         private val resourceManager: ResourceManager
     ) : Model {
         private var callback: ResultCallback? = null
 
-        override fun getJoke() {
-            service.getJoke(object : ServiceCallback {
+        override fun getQuote() {
+            service.getQuote(object : ServiceCallback {
                 override fun success(data: String) {
-                    callback?.provideSuccess(Joke(data, ""))
+                    callback?.provideSuccess(Quote(data, ""))
                 }
 
                 override fun error(type: ErrorType) {
                     when (type) {
-                        ErrorType.NO_CONNECTION -> callback?.provideError(JokeFailure.NoConnection(resourceManager))
-                        ErrorType.OTHER -> callback?.provideError(JokeFailure.ServiceUnavailable(resourceManager))
+                        ErrorType.NO_CONNECTION -> callback?.provideError(QuoteFailure.NoConnection(resourceManager))
+                        ErrorType.OTHER -> callback?.provideError(QuoteFailure.ServiceUnavailable(resourceManager))
                     }
                 }
             })
@@ -42,7 +42,7 @@ interface Model {
 
 interface ResultCallback {
 
-    fun provideSuccess(data: Joke)
+    fun provideSuccess(data: Quote)
 
-    fun provideError(error: JokeFailure)
+    fun provideError(error: QuoteFailure)
 }

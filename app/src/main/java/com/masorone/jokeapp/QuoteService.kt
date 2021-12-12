@@ -6,15 +6,12 @@ import java.net.HttpURLConnection
 import java.net.URL
 import java.net.UnknownHostException
 
-/**
- * {"_id": "QdK00IhCNX", "теги": ["известные-цитаты", "вдохновляющие"], "author": "Ларри Пейдж", "content": "Если вы меняете мир, вы работаете над важными делами. Вам не терпится встать утром. "," authorSlug ":" larry-page "," length ": 106," dateAdded ":" 2021-06-18 "," dateModified ": «2021-06-18»}
- */
 
-interface JokeService {
-    fun getJoke(callback: ServiceCallback)
+interface QuoteService {
+    fun getQuote(callback: ServiceCallback)
 
-    class Base() : JokeService {
-        override fun getJoke(callback: ServiceCallback) {
+    class Base() : QuoteService {
+        override fun getQuote(callback: ServiceCallback) {
             Thread {
                 var connection: HttpURLConnection? = null
                 try {
