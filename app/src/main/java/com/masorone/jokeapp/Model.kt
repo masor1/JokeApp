@@ -21,19 +21,19 @@ interface Model {
         override fun getQuote() {
             service.getQuote().enqueue( object : retrofit2.Callback<QuoteDTO> {
                 override fun onResponse(call: Call<QuoteDTO>, response: Response<QuoteDTO>) {
-                    if (response.isSuccessful) {
-                        callback?.provideSuccess(response.body()!!.toQuote())
-                    } else {
-                        callback?.provideError(QuoteFailure.ServiceUnavailable(resourceManager))
-                    }
+//                    if (response.isSuccessful) {
+//                        callback?.provideSuccess(response.body()!!.toQuote())
+//                    } else {
+//                        callback?.provideError(QuoteFailure.ServiceUnavailable(resourceManager))
+//                    }
                 }
 
                 override fun onFailure(call: Call<QuoteDTO>, t: Throwable) {
-                    if (t is UnknownHostException) {
-                        callback?.provideError(QuoteFailure.NoConnection(resourceManager))
-                    } else {
-                        callback?.provideError(QuoteFailure.ServiceUnavailable(resourceManager))
-                    }
+//                    if (t is UnknownHostException) {
+//                        callback?.provideError(QuoteFailure.NoConnection(resourceManager))
+//                    } else {
+//                        callback?.provideError(QuoteFailure.ServiceUnavailable(resourceManager))
+//                    }
                 }
             })
         }
@@ -51,7 +51,5 @@ interface Model {
 
 interface ResultCallback {
 
-    fun provideSuccess(data: Quote)
-
-    fun provideError(error: QuoteFailure)
+    fun provideQuote(quote: Quote)
 }

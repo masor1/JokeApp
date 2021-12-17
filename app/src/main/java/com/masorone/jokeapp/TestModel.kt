@@ -11,9 +11,9 @@ class TestModel(resourceManager: ResourceManager) : Model {
         Thread {
             Thread.sleep(2000)
             when (count) {
-                0 -> callback?.provideSuccess(Quote("testText", "testPunchline", "", ""))
-                1 -> callback?.provideError(noConnection)
-                2 -> callback?.provideError(serviceUnavailable)
+                0 -> callback?.provideQuote(Quote.Base("testText", "testPunchline", "", ""))
+                1 -> callback?.provideQuote(Quote.Favorite("1", "favourite", "favourite", "favourite"))
+                2 -> callback?.provideQuote(Quote.Failed(content = serviceUnavailable.getMessage()))
             }
             count++
             if (count == 3) count = 0

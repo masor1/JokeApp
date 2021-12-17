@@ -16,8 +16,7 @@ class QuoteApp : Application() {
             .build()
 
         viewModel = ViewModel(
-            Model.Base(
-                retrofit.create(QuoteService::class.java),
+            TestModel(
                 ResourceManager.ResString(this)
             )
         )

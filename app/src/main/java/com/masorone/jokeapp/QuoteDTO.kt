@@ -16,5 +16,5 @@ class QuoteDTO(
     @SerializedName("dateAdded")
     private val dateAdded: String
 ) {
-    fun toQuote() = Quote(id, author, content, dateAdded)
+    fun toQuote() = Quote.Base(id, author, content, dateAdded)
 }

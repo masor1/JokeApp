@@ -3,15 +3,15 @@ package com.masorone.jokeapp
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
-import android.widget.ProgressBar
-import android.widget.TextView
+import android.widget.*
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var quoteLoadingProgressBar: ProgressBar
     private lateinit var quoteOrErrorTextView: TextView
     private lateinit var getQuoteButton: Button
+    private lateinit var checkBox: CheckBox
+    private lateinit var iconView: ImageView
     private lateinit var viewModel: ViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,14 +32,19 @@ class MainActivity : AppCompatActivity() {
 
     private fun initViews() {
         quoteLoadingProgressBar = findViewById(R.id.quoteLoading)
-        quoteOrErrorTextView = findViewById(R.id.quoteOrError)
+        quoteOrErrorTextView = findViewById(R.id.textView)
         getQuoteButton = findViewById(R.id.getQuote)
+        checkBox = findViewById(R.id.checkBox)
+        iconView = findViewById(R.id.iconView)
     }
 
     private fun setFunctional() {
         quoteLoadingProgressBar.visibility = View.INVISIBLE
         getQuoteButton.setOnClickListener {
             getQuote()
+        }
+        checkBox.setOnCheckedChangeListener { _, isChecked ->
+            viewModel.chooseFavorites(isChecked)
         }
         viewModel.init(createTextCallback())
     }
@@ -50,12 +55,15 @@ class MainActivity : AppCompatActivity() {
         viewModel.getQuote()
     }
 
-    private fun createTextCallback() = object : TextCallback {
+    private fun createTextCallback() = object : DataCallback {
+
         override fun provideText(text: String) = runOnUiThread {
             getQuoteButton.isEnabled = true
             quoteLoadingProgressBar.visibility = View.INVISIBLE
             quoteOrErrorTextView.text = text
         }
+
+        override fun provideIconRes(id: Int) = runOnUiThread { iconView.setImageResource(id) }
     }
 
     override fun onDestroy() {
